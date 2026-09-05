@@ -43,6 +43,13 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    // 允许通过反代域名访问开发服务器
+    allowedHosts: ['foundation.just4fun.online'],
+  },
+  preview: {
+    allowedHosts: ['foundation.just4fun.online'],
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
