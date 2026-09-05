@@ -6,10 +6,12 @@ const { source, imageUrl, blur, dim, ensureLoaded } = useBackground()
 
 // 背景图加载失败（如必应壁纸不可达）时回退渐变，切换图片源后重置
 const imgError = ref(false)
+const imgLoaded = ref(false)
 
 watch(source, ensureLoaded, { immediate: true })
 watch(imageUrl, () => {
   imgError.value = false
+  imgLoaded.value = false
 })
 </script>
 
@@ -20,11 +22,13 @@ watch(imageUrl, () => {
         :key="imageUrl"
         :src="imageUrl"
         alt=""
-        class="size-full object-cover"
+        class="size-full object-cover transition-opacity duration-700"
+        :class="imgLoaded ? 'opacity-100' : 'opacity-0'"
         :style="{
           filter: blur > 0 ? `blur(${blur}px)` : undefined,
           transform: blur > 0 ? 'scale(1.08)' : undefined,
         }"
+        @load="imgLoaded = true"
         @error="imgError = true"
       />
       <div class="absolute inset-0 bg-black" :style="{ opacity: dim / 100 }" />

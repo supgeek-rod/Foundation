@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Toaster } from '@/components/ui/sonner'
 import BackgroundLayer from '@/components/BackgroundLayer.vue'
+import BackgroundShuffleButton from '@/components/BackgroundShuffleButton.vue'
 import ClockDate from '@/components/ClockDate.vue'
 import QuoteFooter from '@/components/QuoteFooter.vue'
 import SearchBox from '@/components/SearchBox.vue'
@@ -19,6 +20,7 @@ useTheme()
 
   <div class="relative z-10 flex h-dvh flex-col">
     <div class="absolute top-4 right-4 z-20 flex gap-2">
+      <BackgroundShuffleButton />
       <ThemeToggle />
       <SettingsButton />
     </div>
