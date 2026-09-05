@@ -2,6 +2,7 @@
 import { Search } from '@lucide/vue'
 import { useDebounceFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import SearchEngineIcon from '@/components/SearchEngineIcon.vue'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { fetchSuggestions } from '@/services/suggestionsApi'
 import { useSettingsStore } from '@/stores/settings'
@@ -129,11 +130,10 @@ defineExpose({ focus: focusInput })
         <PopoverTrigger as-child>
           <button
             type="button"
-            class="flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white shadow-sm transition-transform hover:scale-105"
-            :style="{ background: engine.color }"
+            class="shrink-0 rounded-full transition-transform hover:scale-105 active:scale-95"
             :title="`当前引擎：${engine.name}（Tab 切换）`"
           >
-            {{ engine.name.slice(0, 1).toUpperCase() }}
+            <SearchEngineIcon :engine="engine" size="size-8" />
           </button>
         </PopoverTrigger>
         <PopoverContent align="start" :side-offset="8" class="w-56 rounded-xl p-1.5">
@@ -144,12 +144,7 @@ defineExpose({ focus: focusInput })
             class="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors hover:bg-foreground/5"
             @click="pickEngine(e.id)"
           >
-            <span
-              class="flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
-              :style="{ background: e.color }"
-            >
-              {{ e.name.slice(0, 1).toUpperCase() }}
-            </span>
+            <SearchEngineIcon :engine="e" size="size-6" />
             <span class="flex-1 truncate">{{ e.name }}</span>
             <span v-if="e.id === store.currentEngineId" class="text-xs text-muted-foreground">当前</span>
           </button>

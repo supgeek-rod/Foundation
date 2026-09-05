@@ -1,6 +1,6 @@
 import type { SearchEngine } from '@/types/search'
 
-export const DEFAULT_ENGINE_ID = 'bing'
+export const DEFAULT_ENGINE_ID = 'google'
 
 export const BUILTIN_SEARCH_ENGINES: SearchEngine[] = [
   { id: 'bing', name: '必应', url: 'https://www.bing.com/search?q={query}', builtin: 'bing', color: '#008373' },

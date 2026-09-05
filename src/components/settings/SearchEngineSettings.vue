@@ -2,6 +2,7 @@
 import { Pencil, Plus, RotateCcw, Star, Trash2 } from '@lucide/vue'
 import { ref } from 'vue'
 import { toast } from 'vue-sonner'
+import SearchEngineIcon from '@/components/SearchEngineIcon.vue'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -82,12 +83,7 @@ function reset() {
       class="flex cursor-pointer items-center gap-3 rounded-xl bg-muted/70 px-4 py-3 transition-colors hover:bg-muted"
       @click="setDefault(engine.id)"
     >
-      <span
-        class="flex size-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white"
-        :style="{ background: engine.color }"
-      >
-        {{ engine.name.slice(0, 1).toUpperCase() }}
-      </span>
+      <SearchEngineIcon :engine="engine" />
       <div class="min-w-0 flex-1">
         <div class="flex items-center gap-1.5 text-sm font-medium">
           {{ engine.name }}
