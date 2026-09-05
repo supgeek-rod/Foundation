@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
-import { ExternalLink, Pencil, Plus, Trash2 } from '@lucide/vue'
+import { ExternalLink, Pencil, Plus, SquarePen, Trash2 } from '@lucide/vue'
 import { ref } from 'vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
 import { useSettingsStore } from '@/stores/settings'
@@ -13,6 +13,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
+import BatchEditDialog from './BatchEditDialog.vue'
 import GroupEditDialog from './GroupEditDialog.vue'
 import SiteEditDialog from './SiteEditDialog.vue'
 import SiteIcon from './SiteIcon.vue'
@@ -29,6 +30,7 @@ const groupDialog = ref<{ open: boolean; group: { id: string; name: string } | n
   open: false,
   group: null,
 })
+const batchOpen = ref(false)
 const confirm = ref<{ open: boolean; title: string; desc: string; action: () => void }>({
   open: false,
   title: '',
@@ -96,6 +98,10 @@ function onConfirm() {
             <Pencil /> 重命名分组
           </ContextMenuItem>
           <ContextMenuSeparator />
+          <ContextMenuItem @click="batchOpen = true">
+            <SquarePen /> 批量编辑
+          </ContextMenuItem>
+          <ContextMenuSeparator />
           <ContextMenuItem
             class="text-destructive focus:text-destructive"
             @click="askRemoveGroup(group)"
@@ -149,6 +155,7 @@ function onConfirm() {
 
     <SiteEditDialog v-model:open="siteDialog.open" :site="siteDialog.site" :group-id="siteDialog.groupId" />
     <GroupEditDialog v-model:open="groupDialog.open" :group="groupDialog.group" />
+    <BatchEditDialog v-model:open="batchOpen" />
     <ConfirmDialog
       v-model:open="confirm.open"
       :title="confirm.title"

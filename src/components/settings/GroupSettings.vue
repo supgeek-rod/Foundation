@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronDown, ChevronUp, Pencil, Plus, Trash2 } from '@lucide/vue'
+import { ChevronDown, ChevronUp, Pencil, Plus, SquarePen, Trash2 } from '@lucide/vue'
 import { ref } from 'vue'
 import { toast } from 'vue-sonner'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
@@ -13,11 +13,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import BatchEditDialog from '@/components/shortcuts/BatchEditDialog.vue'
 import { useShortcutsStore } from '@/stores/shortcuts'
 
 const store = useShortcutsStore()
 
 const dialogOpen = ref(false)
+const batchOpen = ref(false)
 const editing = ref<{ id: string; name: string } | null>(null)
 const name = ref('')
 const confirm = ref<{ open: boolean; id: string; name: string; count: number }>({
@@ -116,7 +118,12 @@ function doRemove() {
       </Button>
     </div>
 
-    <Button class="mt-1" @click="openAdd"><Plus class="size-4" /> 新建分组</Button>
+    <div class="flex gap-2">
+      <Button @click="openAdd"><Plus class="size-4" /> 新建分组</Button>
+      <Button variant="outline" @click="batchOpen = true">
+        <SquarePen class="size-4" /> 批量编辑
+      </Button>
+    </div>
 
     <Dialog v-model:open="dialogOpen">
       <DialogContent class="sm:max-w-xs">
@@ -144,5 +151,7 @@ function doRemove() {
       confirm-text="删除"
       @confirmed="doRemove"
     />
+
+    <BatchEditDialog v-model:open="batchOpen" />
   </div>
 </template>
