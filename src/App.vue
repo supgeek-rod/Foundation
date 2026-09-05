@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/sonner'
 import BackgroundLayer from '@/components/BackgroundLayer.vue'
 import BackgroundShuffleButton from '@/components/BackgroundShuffleButton.vue'
 import ClockDate from '@/components/ClockDate.vue'
+import NoteButton from '@/components/NoteButton.vue'
 import QuoteFooter from '@/components/QuoteFooter.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import SettingsButton from '@/components/SettingsButton.vue'
@@ -12,6 +13,7 @@ import WeatherInfo from '@/components/WeatherInfo.vue'
 import ShortcutGroups from '@/components/shortcuts/ShortcutGroups.vue'
 import SettingsModal from '@/components/settings/SettingsModal.vue'
 import TodoModal from '@/components/todos/TodoModal.vue'
+import NoteModal from '@/components/notes/NoteModal.vue'
 import { useTheme } from '@/composables/useTheme'
 
 useTheme()
@@ -23,6 +25,7 @@ useTheme()
   <div class="relative z-10 flex h-dvh flex-col">
     <div class="absolute top-4 right-4 z-20 flex gap-2">
       <BackgroundShuffleButton />
+      <NoteButton />
       <TodoButton />
       <ThemeToggle />
       <SettingsButton />
@@ -42,5 +45,6 @@ useTheme()
 
   <SettingsModal />
   <TodoModal />
+  <NoteModal />
   <Toaster position="top-center" :duration="2200" />
 </template>
