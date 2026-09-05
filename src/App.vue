@@ -7,9 +7,11 @@ import QuoteFooter from '@/components/QuoteFooter.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import SettingsButton from '@/components/SettingsButton.vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+import TodoButton from '@/components/TodoButton.vue'
 import WeatherInfo from '@/components/WeatherInfo.vue'
 import ShortcutGroups from '@/components/shortcuts/ShortcutGroups.vue'
 import SettingsModal from '@/components/settings/SettingsModal.vue'
+import TodoModal from '@/components/todos/TodoModal.vue'
 import { useTheme } from '@/composables/useTheme'
 
 useTheme()
@@ -21,6 +23,7 @@ useTheme()
   <div class="relative z-10 flex h-dvh flex-col">
     <div class="absolute top-4 right-4 z-20 flex gap-2">
       <BackgroundShuffleButton />
+      <TodoButton />
       <ThemeToggle />
       <SettingsButton />
     </div>
@@ -38,5 +41,6 @@ useTheme()
   </div>
 
   <SettingsModal />
+  <TodoModal />
   <Toaster position="top-center" :duration="2200" />
 </template>

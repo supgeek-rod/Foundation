@@ -30,6 +30,20 @@ export function windLevelText(kmh: number): string {
   return `${level}级`
 }
 
+/** 日志时间：今天显示 HH:mm，昨天显示「昨天 HH:mm」，更早显示「M月D日 HH:mm」 */
+export function formatLogTime(ts: number): string {
+  const d = new Date(ts)
+  const now = new Date()
+  const time = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`
+  const sameDay = (a: Date, b: Date) =>
+    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  const yesterday = new Date(now)
+  yesterday.setDate(now.getDate() - 1)
+  if (sameDay(d, now)) return time
+  if (sameDay(d, yesterday)) return `昨天 ${time}`
+  return `${d.getMonth() + 1}月${d.getDate()}日 ${time}`
+}
+
 /** 补全协议头 */
 export function normalizeUrl(url: string): string {
   const trimmed = url.trim()
