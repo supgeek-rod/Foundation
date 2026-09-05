@@ -6,6 +6,7 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue'
 import { useSettingsStore } from '@/stores/settings'
 import { useShortcutsStore } from '@/stores/shortcuts'
 import type { Site } from '@/types/shortcut'
+import { normalizeUrl } from '@/utils/format'
 import {
   ContextMenu,
   ContextMenuContent,
@@ -39,12 +40,13 @@ const confirm = ref<{ open: boolean; title: string; desc: string; action: () => 
 })
 
 function openSite(site: Site) {
-  if (settings.settings.openLinkInNewTab) window.open(site.url, '_blank', 'noopener')
-  else window.location.href = site.url
+  const url = normalizeUrl(site.url)
+  if (settings.settings.openLinkInNewTab) window.open(url, '_blank', 'noopener')
+  else window.location.href = url
 }
 
 function openInNewTab(site: Site) {
-  window.open(site.url, '_blank', 'noopener')
+  window.open(normalizeUrl(site.url), '_blank', 'noopener')
 }
 
 function askRemoveSite(groupId: string, site: Site) {

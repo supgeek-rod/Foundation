@@ -1,8 +1,9 @@
 import type { ShortcutGroup } from '@/types/shortcut'
+import { normalizeUrl } from '@/utils/format'
 import { uid } from '@/utils/id'
 
 function site(name: string, url: string): { id: string; name: string; url: string } {
-  return { id: uid(), name, url }
+  return { id: uid(), name, url: normalizeUrl(url) }
 }
 
 export const DEFAULT_GROUPS: ShortcutGroup[] = [

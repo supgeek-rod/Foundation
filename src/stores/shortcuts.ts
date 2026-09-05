@@ -10,6 +10,17 @@ export const useShortcutsStore = defineStore(
   () => {
     const groups = ref<ShortcutGroup[]>(structuredClone(DEFAULT_GROUPS))
 
+    // 旧数据兼容：历史版本可能存有缺协议头的网址（如 weibo.com），一次性补全
+    const needsNormalize = groups.value.some((g) =>
+      g.sites.some((s) => !/^https?:\/\//i.test(s.url)),
+    )
+    if (needsNormalize) {
+      groups.value = groups.value.map((g) => ({
+        ...g,
+        sites: g.sites.map((s) => ({ ...s, url: normalizeUrl(s.url) })),
+      }))
+    }
+
     function findGroup(id: string): ShortcutGroup | undefined {
       return groups.value.find((g) => g.id === id)
     }
