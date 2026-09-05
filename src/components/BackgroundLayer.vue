@@ -1,8 +1,25 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useBackground } from '@/composables/useBackground'
+import { useTheme } from '@/composables/useTheme'
 
 const { source, imageUrl, blur, dim, ensureLoaded } = useBackground()
+const { isDark } = useTheme()
+
+// 主题自适应：深色压暗（黑色遮罩全强度），浅色提亮（遮罩仅 40% 强度）
+const overlayOpacity = computed(() =>
+  isDark.value ? dim.value / 100 : (dim.value * 0.4) / 100,
+)
+
+const imgStyle = computed(() => {
+  const filters: string[] = []
+  if (blur.value > 0) filters.push(`blur(${blur.value}px)`)
+  filters.push(isDark.value ? 'brightness(0.88)' : 'brightness(1.06) saturate(1.04)')
+  return {
+    filter: filters.join(' '),
+    transform: blur.value > 0 ? 'scale(1.08)' : undefined,
+  }
+})
 
 // 背景图加载失败（如必应壁纸不可达）时回退渐变，切换图片源后重置
 const imgError = ref(false)
@@ -24,14 +41,11 @@ watch(imageUrl, () => {
         alt=""
         class="size-full object-cover transition-opacity duration-700"
         :class="imgLoaded ? 'opacity-100' : 'opacity-0'"
-        :style="{
-          filter: blur > 0 ? `blur(${blur}px)` : undefined,
-          transform: blur > 0 ? 'scale(1.08)' : undefined,
-        }"
+        :style="imgStyle"
         @load="imgLoaded = true"
         @error="imgError = true"
       />
-      <div class="absolute inset-0 bg-black" :style="{ opacity: dim / 100 }" />
+      <div class="absolute inset-0 bg-black" :style="{ opacity: overlayOpacity }" />
     </template>
 
     <template v-else>
@@ -50,7 +64,7 @@ watch(imageUrl, () => {
         class="absolute -right-32 -bottom-40 size-[40rem] rounded-full opacity-50 blur-3xl"
         style="background: radial-gradient(circle, #f472b655, transparent 65%)"
       />
-      <div class="absolute inset-0 bg-black" :style="{ opacity: dim / 200 }" />
+      <div class="absolute inset-0 bg-black" :style="{ opacity: overlayOpacity }" />
     </template>
   </div>
 </template>

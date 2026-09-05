@@ -98,7 +98,7 @@ function removeCustom() {
       <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onFileChange" />
     </SettingRow>
 
-    <SettingRow title="暗色遮罩" desc="压暗背景，提升文字可读性">
+    <SettingRow title="遮罩强度" desc="深色模式压暗背景、浅色模式柔化背景，提升文字可读性">
       <div class="flex w-44 items-center gap-3">
         <Slider
           :model-value="[store.settings.background.dim]"
