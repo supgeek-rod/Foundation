@@ -83,29 +83,29 @@ function useAutoLocation() {
 
     <SettingRow title="随机一言" desc="在主页下方空白处随机显示一句格言或诗词">
       <Switch
-        :checked="store.settings.showQuote"
-        @update:checked="(v: boolean) => store.updateSettings({ showQuote: v })"
+        :model-value="store.settings.showQuote"
+        @update:model-value="(v: boolean) => store.updateSettings({ showQuote: v })"
       />
     </SettingRow>
 
     <SettingRow title="显示天气" desc="控制是否在时间下方显示天气信息">
       <Switch
-        :checked="store.settings.showWeather"
-        @update:checked="(v: boolean) => store.updateSettings({ showWeather: v })"
+        :model-value="store.settings.showWeather"
+        @update:model-value="(v: boolean) => store.updateSettings({ showWeather: v })"
       />
     </SettingRow>
 
     <SettingRow title="显示完整日期" desc="控制是否显示主页月份和日期">
       <Switch
-        :checked="store.settings.showFullDate"
-        @update:checked="(v: boolean) => store.updateSettings({ showFullDate: v })"
+        :model-value="store.settings.showFullDate"
+        @update:model-value="(v: boolean) => store.updateSettings({ showFullDate: v })"
       />
     </SettingRow>
 
     <SettingRow title="显示快捷方式" desc="控制是否在主页显示快捷方式分组">
       <Switch
-        :checked="store.settings.showShortcuts"
-        @update:checked="(v: boolean) => store.updateSettings({ showShortcuts: v })"
+        :model-value="store.settings.showShortcuts"
+        @update:model-value="(v: boolean) => store.updateSettings({ showShortcuts: v })"
       />
     </SettingRow>
 

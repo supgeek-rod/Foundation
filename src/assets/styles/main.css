@@ -119,6 +119,26 @@
   ::selection {
     background: rgb(120 160 255 / 35%);
   }
+
+  /* 细滚动条，弱化存在感 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(128 128 128 / 40%) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(128 128 128 / 40%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 /* 毛玻璃面板 */

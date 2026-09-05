@@ -74,7 +74,7 @@ function onConfirm() {
 <template>
   <section
     v-if="settings.settings.showShortcuts && store.groups.length > 0"
-    class="mt-10 w-full max-w-3xl space-y-5"
+    class="mt-8 w-full max-w-3xl space-y-4"
   >
     <div v-for="group in store.groups" :key="group.id">
       <ContextMenu>

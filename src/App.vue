@@ -17,17 +17,19 @@ useTheme()
 <template>
   <BackgroundLayer />
 
-  <div class="relative z-10 flex min-h-dvh flex-col">
+  <div class="relative z-10 flex h-dvh flex-col">
     <div class="absolute top-4 right-4 z-20 flex gap-2">
       <ThemeToggle />
       <SettingsButton />
     </div>
 
-    <main class="flex flex-1 flex-col items-center justify-center overflow-y-auto px-4 py-20">
-      <ClockDate />
-      <WeatherInfo />
-      <SearchBox />
-      <ShortcutGroups />
+    <main class="flex flex-1 flex-col overflow-y-auto px-4 py-10">
+      <div class="m-auto flex w-full flex-col items-center">
+        <ClockDate />
+        <WeatherInfo />
+        <SearchBox />
+        <ShortcutGroups />
+      </div>
     </main>
 
     <QuoteFooter />

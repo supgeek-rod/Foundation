@@ -51,7 +51,8 @@ watch(imageUrl, () => {
   </div>
 </template>
 
-<style scoped>
+<style>
+/* 全局自定义属性，随 .dark 切换；不能加 scoped（scoped 会让 :root/.dark 匹配不到 html） */
 :root {
   --grad-from: #667eea;
   --grad-mid: #764ba2;
