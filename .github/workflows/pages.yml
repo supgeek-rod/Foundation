@@ -14,8 +14,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  # 首次运行时 configure-pages 需要通过 API 自动启用 Pages
-  administration: write
 
 jobs:
   deploy:
