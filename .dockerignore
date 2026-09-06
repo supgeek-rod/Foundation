@@ -1,0 +1,14 @@
+# 版本控制与 CI
+.git
+.github
+.gitignore
+
+# 本地开发产物
+node_modules
+dist
+docs
+.vscode
+.zcode
+
+# 文档
+*.md
