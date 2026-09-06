@@ -6,6 +6,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages 项目站点部署时，由 CI 注入子路径（如 /Foundation/）；默认根路径
+  base: process.env.VITE_BASE || '/',
   plugins: [
     vue(),
     tailwindcss(),
