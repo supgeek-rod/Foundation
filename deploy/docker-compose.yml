@@ -1,0 +1,23 @@
+# Foundation 起始页自动化部署（GHCR + Watchtower）
+# 链路：push main → GitHub Actions 构建并推送 GHCR latest 镜像
+#      → 本机 Watchtower 每 5 分钟检测新镜像，自动拉取并重建 foundation 容器
+services:
+  web:
+    image: ghcr.io/supgeek-rod/foundation:latest
+    container_name: foundation
+    ports:
+      - "${FOUNDATION_PORT:-5777}:80"
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: foundation-watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Asia/Shanghai
+    # --interval 300   每 300 秒检查一次镜像更新
+    # --cleanup        更新后删除旧镜像，避免占用磁盘
+    # foundation       只监控 foundation 容器（fnOS 环境下 label 过滤扫不到容器，改用容器名指定）
+    command: --interval 300 --cleanup foundation
+    restart: unless-stopped
