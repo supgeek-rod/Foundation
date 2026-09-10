@@ -7,6 +7,9 @@ services:
     container_name: foundation
     ports:
       - "${FOUNDATION_PORT:-5777}:80"
+    labels:
+      # 与下方 watchtower 的 --scope 对应；scope 不同的 watchtower 互不冲突、也不互相更新
+      com.centurylinklabs.watchtower.scope: foundation
     restart: unless-stopped
 
   watchtower:
@@ -18,6 +21,7 @@ services:
       - TZ=Asia/Shanghai
     # --interval 300   每 300 秒检查一次镜像更新
     # --cleanup        更新后删除旧镜像，避免占用磁盘
+    # --scope          独立 scope：避免启动时把默认 scope 的其他 watchtower（如 music-copilot 的）当冲突实例停止并删除
     # foundation       只监控 foundation 容器（fnOS 环境下 label 过滤扫不到容器，改用容器名指定）
-    command: --interval 300 --cleanup foundation
+    command: --interval 300 --cleanup --scope foundation foundation
     restart: unless-stopped
